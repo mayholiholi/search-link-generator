@@ -1,0 +1,136 @@
+/* テーマ対応（ライト/ダーク） + グラスモーフィズム */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ダークテーマ（デフォルト） */
+:root {
+  --bg-primary: #121218;
+  --bg-secondary: #1a1a24;
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --text-primary: #c8cdd5;
+  --text-secondary: #828a98;
+  --text-muted: #6d7580;
+  --accent-purple: #7b72b0;
+  --radius: 16px;
+  --bg-gradient-1: rgba(100, 100, 160, 0.04);
+  --bg-gradient-2: rgba(120, 100, 150, 0.04);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.08);
+  --selection-bg: rgba(120, 110, 170, 0.25);
+  --selection-color: #ddd;
+  --input-bg: rgba(255, 255, 255, 0.03);
+  --toggle-bg: rgba(255, 255, 255, 0.08);
+  --toggle-knob: rgba(255, 255, 255, 0.6);
+  --chip-bg: rgba(255, 255, 255, 0.03);
+  --chip-active-bg: rgba(255, 255, 255, 0.06);
+  --btn-ghost-bg: rgba(255, 255, 255, 0.04);
+  --btn-ghost-active-bg: rgba(255, 255, 255, 0.08);
+  --link-hover-bg: rgba(255, 255, 255, 0.06);
+  --history-hover-bg: rgba(255, 255, 255, 0.05);
+  --card-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  color-scheme: dark;
+}
+
+/* ライトテーマ */
+:root[data-theme="light"] {
+  --bg-primary: #f0f0f5;
+  --bg-secondary: #e8e8f0;
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  --text-primary: #2a2a35;
+  --text-secondary: #555568;
+  --text-muted: #7a7a8a;
+  --accent-purple: #6b60a8;
+  --bg-gradient-1: rgba(100, 100, 180, 0.06);
+  --bg-gradient-2: rgba(130, 100, 160, 0.06);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.1);
+  --selection-bg: rgba(100, 90, 160, 0.2);
+  --selection-color: #222;
+  --input-bg: rgba(0, 0, 0, 0.03);
+  --toggle-bg: rgba(0, 0, 0, 0.1);
+  --toggle-knob: rgba(255, 255, 255, 0.9);
+  --chip-bg: rgba(0, 0, 0, 0.03);
+  --chip-active-bg: rgba(0, 0, 0, 0.05);
+  --btn-ghost-bg: rgba(0, 0, 0, 0.03);
+  --btn-ghost-active-bg: rgba(0, 0, 0, 0.06);
+  --link-hover-bg: rgba(0, 0, 0, 0.04);
+  --history-hover-bg: rgba(0, 0, 0, 0.04);
+  --card-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  color-scheme: light;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* 背景グラデーション（控えめ） */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 20% 50%, var(--bg-gradient-1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, var(--bg-gradient-2) 0%, transparent 50%);
+  animation: bgShift 30s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+@keyframes bgShift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-3%, -3%); }
+}
+
+#app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* グラスカード共通 */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: var(--glass-shadow);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* スクロールバー */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+/* セレクション */
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-color);
+}
+
+/* フォーカス可視化（アクセシビリティ） */
+:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 2px;
+}
